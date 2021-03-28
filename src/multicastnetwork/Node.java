@@ -9,14 +9,6 @@ package multicastnetwork;
  *
  * @author Jozif
  */
-public class MulticastNetwork {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("test");
-    }
+public class Node {
     
 }
