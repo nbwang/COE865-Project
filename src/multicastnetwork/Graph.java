@@ -11,10 +11,11 @@ import java.io.*;
 
 
 public class Graph {
-    public static void main (String args[])
-    {
         ArrayList<Node> nodesList = new ArrayList<Node>();
         ArrayList<Edge> edgesList = new ArrayList<Edge>();
+
+    public Graph createGraph(){
+        Graph graph = new Graph();
         boolean linebreak = false;
         int line = 0;
         File topology = new File ("topology.txt");
@@ -26,7 +27,7 @@ public class Graph {
             {
                 line++;
                 String lineData = fileReader.nextLine();
-                if (lineData.equals("EDGES"));
+                if (lineData.equals("EDGES"))
                 {
                     linebreak = true;
                     continue;
@@ -40,13 +41,13 @@ public class Graph {
                     switch(nodeType){
                         case 'S':
                             Source source = new Source(nodeID, nodePort);
-                            nodesList.add(source);
+                            graph.nodesList.add(source);
                         case 'R':
-                            Reciever reciever = new Receiver(nodeID, nodePort);
-                            nodesList.add(reciever);
+                            Receiver receiver = new Receiver(nodeID, nodePort);
+                            graph.nodesList.add(receiver);
                         case 'F':
                             Forwarder forwarder = new Forwarder(nodeID, nodePort);
-                            nodesList.add(forwarder);
+                            graph.nodesList.add(forwarder);
                     }
                 }
                 else
@@ -57,19 +58,19 @@ public class Graph {
                     int edgeSrc = Integer.parseInt(stParts[1]);
                     int edgeDest = Integer.parseInt(stParts[2]);
 
-                    Node src;
-                    Node dest;
-                    for(Node n: nodesList){
-                        if(n.getId() == src){
+                    Node src = null;
+                    Node dest = null;
+                    for(Node n: graph.nodesList){
+                        if(n.getId() == edgeSrc){
                             src = n;
                         }
-                        else if (n.getId() == dest){
+                        else if (n.getId() == edgeDest){
                             dest = n;
                         }
                     }
 
-                    Edge edge = new Edge(edgeWeight, edgeSrc, edgeDest);
-                    edgesList.add(edge);
+                    Edge edge = new Edge(edgeWeight, src, dest);
+                    graph.edgesList.add(edge);
                 
                 }
             }
@@ -79,9 +80,10 @@ public class Graph {
         {
             System.out.println (e.getMessage());
         }
+        return graph;
     }
 
-    class Edge {
+    static class Edge {
         int weight;
         Node src;
         Node dest;
