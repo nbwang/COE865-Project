@@ -83,17 +83,4 @@ public class Graph {
         return graph;
     }
 
-    static class Edge {
-        int weight;
-        Node src;
-        Node dest;
-
-        public Edge(int weight, Node src, Node dest){
-            this.weight = weight;
-            this.src = src;
-            this.dest = dest;
-        }
-                   
-    }
-
 }

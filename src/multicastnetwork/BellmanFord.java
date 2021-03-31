@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package multicastnetwork;
 
 import java.util.*;
-import multicastnetwork.Graph.Edge;
 import java.lang.*;
 import java.io.*; 
 
@@ -27,10 +21,10 @@ public class BellmanFord {
         for(int  i = 1; i < graph.nodesList.size(); i++){
             for(Edge e : graph.edgesList){
                 if(dist[e.src.getId()] != Integer.MAX_VALUE &&  (dist[e.src.getId()] + e.weight) < dist[e.dest.getId()]){
-                    if(dist[e.dest.getId()] == dist[Destination.getId()]){
-                        path.add(e.dest);
+                    if(dist[e.dst.getId()] == dist[Destination.getId()]){
+                        path.add(e.dst);
                     }
-                    dist[e.dest.getId()] = dist[e.src.getId()] + e.weight;
+                    dist[e.dst.getId()] = dist[e.src.getId()] + e.weight;
                 }
             }
         }
