@@ -6,10 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Forwarder extends Node{
-    private ArrayList<Node> shortestPath;
     
     public Forwarder(int id, int port){
-        super(id, port);
+        super(id, port, 'F');
     }
     
     @Override
@@ -21,8 +20,5 @@ public class Forwarder extends Node{
         }  
     }
 
-    public void setShortestPath(ArrayList<Node> shortestPath) {
-        this.shortestPath = shortestPath;
-    }
-    
+
 }

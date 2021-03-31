@@ -6,9 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Receiver extends Node{
+        private ArrayList<Node> shortestPath;
+    
     
     public Receiver(int id, int port){
-        super(id, port);
+        super(id, port, 'R');
     }
     
     @Override
@@ -19,5 +21,10 @@ public class Receiver extends Node{
             Logger.getLogger(Source.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }
+    
+        public void setShortestPath(ArrayList<Node> shortestPath) {
+        this.shortestPath = shortestPath;
+    }
+    
     
 }

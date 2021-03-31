@@ -6,13 +6,15 @@ import java.net.*;
 public abstract class Node {
     protected DatagramSocket UDPsocket;
     protected MulticastSocket multiSocket; 
-    private int id;
-    private int port;
-    private String address = "127.0.0.1";
+    protected char nodeType;
+    protected int id;
+    protected int port;
+    protected String address = "127.0.0.1";
     
-    public Node(int id, int port){
+    public Node(int id, int port, char nodeType){
         this.id = id;
         this.port = port;
+        this.nodeType = nodeType;
         try {
             this.multiSocket = new MulticastSocket(65010);
         } catch (IOException e){
@@ -30,6 +32,14 @@ public abstract class Node {
     }
     
     public abstract void setUpSocket();
+
+    public char getNodeType() {
+        return nodeType;
+    }
+
+    public void setNodeType(char nodeType) {
+        this.nodeType = nodeType;
+    }
     
     public int getId() {
         return id;

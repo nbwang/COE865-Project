@@ -9,7 +9,8 @@ public class Source extends Node{
     private ArrayList<Node> shortestPath;
     
     public Source(int id, int port){
-        super(id, port);
+        super(id, port, 'S');
+        
     }
     
     @Override
@@ -23,6 +24,6 @@ public class Source extends Node{
 
     public void setShortestPath(ArrayList<Node> shortestPath) {
         this.shortestPath = shortestPath;
-    }
+    } 
     
 }
