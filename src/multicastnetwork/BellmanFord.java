@@ -8,8 +8,7 @@ import java.io.*;
 public class BellmanFord {
     public static ArrayList<Node> BellmanFordAlgorithm(Graph graph, Node Source, Node Destination){
         ArrayList<Node> path = new ArrayList<Node>();
-
-        path.add(Source);
+        ArrayList<Node> tempPath = new ArrayList<Node>();
         int numberOfVertices = graph.nodesList.size();
 
         //Creates an array to hold the destination distances
@@ -18,28 +17,30 @@ public class BellmanFord {
         for(int i = 0; i < numberOfVertices; i++){
             distNodes.add(path);
         }
+        path.add(Source);
+        distNodes.set(Source.id-1, path);
         for(int i = 0; i < numberOfVertices; i++){
             dist[i] = Integer.MAX_VALUE;
         }
-        dist[Source.id] = 0;
-        path.add(Source);
-        distNodes.set(Source.id, path);
+        dist[Source.id-1] = 0;
         
-
         for(int  i = 1; i < graph.nodesList.size(); i++){
             for(Edge e : graph.edgesList){
-                if(dist[e.src.id] != Integer.MAX_VALUE && !distNodes.get(e.src.id).isEmpty() &&(dist[e.src.id] + e.weight) < dist[e.dst.id]){
-                    path.clear();
-                    path = distNodes.get(e.src.id);
-                    distNodes.set(e.dst.id, path);
-                    dist[e.dst.id] = dist[e.src.id] + e.weight;
+                if(dist[e.src.id-1] != Integer.MAX_VALUE && !distNodes.get(e.src.id-1).isEmpty() && (dist[e.src.id-1] + e.weight) < dist[e.dst.id-1]){
+                    // path.clear();
+                    tempPath = distNodes.get(e.src.id-1);
+                    path = tempPath;
+                    path.add(e.dst);
+                    distNodes.set(e.dst.id-1, path);
+                    dist[e.dst.id-1] = dist[e.src.id-1] + e.weight;
                 }
             }
         }
         path = distNodes.get(Destination.id-1);
-        System.out.println(distNodes.get(2).size());
-        for(Node n : path)
-          System.out.println(n.id);
+        // System.out.println(distNodes.get(1));
+        // for(Node n : path)
+        //   System.out.println(n.id);
+        // for(int n: dist)System.out.println(n);
         return path;
     }
 
