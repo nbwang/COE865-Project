@@ -9,6 +9,13 @@ public abstract class Node {
     protected char nodeType;
     protected int id;
     protected int port;
+    private int mCastRecvPort;
+    private Group mCastGroup;
+
+    @Override
+    public String toString() {
+        return "Node{" + "nodeType=" + nodeType + ", id=" + id + ", port=" + port + '}';
+    }
     protected String address = "127.0.0.1";
     
     public Node(int id, int port, char nodeType){
@@ -20,9 +27,34 @@ public abstract class Node {
         } catch (IOException e){
             System.out.println(e.getMessage());
         }       
-   
+        this.mCastRecvPort = 4000;
+        this.mCastGroup = new Group(this.id, this.port);
     }
 
+    public void setUDPsocket(DatagramSocket UDPsocket) {
+        this.UDPsocket = UDPsocket;
+    }
+
+    public void setmCastRecvPort(int mCastRecvPort) {
+        this.mCastRecvPort = mCastRecvPort;
+    }
+
+    public void setmCastGroup(Group mCastGroup) {
+        this.mCastGroup = mCastGroup;
+    }
+    
+    public DatagramSocket getUDPsocket() {
+        return UDPsocket;
+    }
+
+    public int getmCastRecvPort() {
+        return mCastRecvPort;
+    }
+
+    public Group getmCastGroup() {
+        return mCastGroup;
+    }
+    
     public MulticastSocket getMultiSocket() {
         return multiSocket;
     }
@@ -31,7 +63,7 @@ public abstract class Node {
         this.multiSocket = multiSocket;
     }
     
-    public abstract void setUpSocket();
+    public abstract void setUpSocket(int port);
 
     public char getNodeType() {
         return nodeType;

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Node.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Graph.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/BellmanFord.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Forwarder.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/MulticastNetwork.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Source.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Receiver.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Edge.java</file>
+            <file>file:/C:/Users/Jozif/Desktop/Ryerson%20Courses/COE/COE865/COE865-Project/src/multicastnetwork/Group.java</file>
+        </group>
+    </open-files>
+</project-private>

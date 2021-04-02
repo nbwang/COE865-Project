@@ -52,7 +52,7 @@ public class Graph {
                             graph.nodesList.add(forwarder);
                             break;
                     }
-                }
+                }                
                 else
                 {
                     // edgesList.add(lineData);
