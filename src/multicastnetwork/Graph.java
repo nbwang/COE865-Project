@@ -42,12 +42,15 @@ public class Graph {
                         case 'S':
                             Source source = new Source(nodeID, nodePort);
                             graph.nodesList.add(source);
+                            break;
                         case 'R':
                             Receiver receiver = new Receiver(nodeID, nodePort);
                             graph.nodesList.add(receiver);
+                            break;
                         case 'F':
                             Forwarder forwarder = new Forwarder(nodeID, nodePort);
                             graph.nodesList.add(forwarder);
+                            break;
                     }
                 }
                 else
