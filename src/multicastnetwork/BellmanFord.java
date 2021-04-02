@@ -28,8 +28,7 @@ public class BellmanFord {
             for(Edge e : graph.edgesList){
                 if(dist[e.src.id-1] != Integer.MAX_VALUE && !distNodes.get(e.src.id-1).isEmpty() && (dist[e.src.id-1] + e.weight) < dist[e.dst.id-1]){
                     // path.clear();
-                    tempPath = distNodes.get(e.src.id-1);
-                    path = tempPath;
+                    path = new ArrayList<>(distNodes.get(e.src.id-1));
                     path.add(e.dst);
                     distNodes.set(e.dst.id-1, path);
                     dist[e.dst.id-1] = dist[e.src.id-1] + e.weight;
@@ -38,8 +37,8 @@ public class BellmanFord {
         }
         path = distNodes.get(Destination.id-1);
         // System.out.println(distNodes.get(1));
-        // for(Node n : path)
-        //   System.out.println(n.id);
+        for(Node n : path)
+          System.out.println(n.id);
         // for(int n: dist)System.out.println(n);
         return path;
     }
