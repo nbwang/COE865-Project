@@ -36,18 +36,7 @@ public class BellmanFord {
             }
         }
         path = distNodes.get(Destination.id-1);
-        // System.out.println(distNodes.get(1));
-        for(Node n : path)
-          System.out.println(n.id);
-        // for(int n: dist)System.out.println(n);
         return path;
     }
 
-    public static void main(String[] args){
-        Graph graph = new Graph();
-        graph = graph.createGraph();
-        Receiver receiver = new Receiver(7,40006);
-        Source source = new Source(1, 40000);
-        BellmanFordAlgorithm(graph,source,receiver);
-    }
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Receiver extends Node{
+public class Receiver extends Node implements Runnable {
     
         private ArrayList<Node> shortestPath;
         private DatagramPacket receivedPacket;
@@ -19,7 +19,7 @@ public class Receiver extends Node{
     @Override
     public void setUpSocket(int port){
       try {
-          this.UDPsocket = new DatagramSocket(port);
+          this.UDPsocket = new DatagramSocket(this.getmCastGroup().getPort());
       } catch (SocketException ex) {  
             Logger.getLogger(Source.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -29,12 +29,14 @@ public class Receiver extends Node{
         this.shortestPath = shortestPath;
     }
     
-    public void receiveMessage(){
+    @Override
+    public void run(){
         byte[] inputBuf = new byte[1024];
         this.receivedPacket = new DatagramPacket(inputBuf, inputBuf.length);
         try {
-            this.getMultiSocket().receive(receivedPacket);
             
+            this.getMultiSocket().receive(receivedPacket);
+            System.out.println("Hello From receiver");
         } catch (IOException ex) {
             Logger.getLogger(Receiver.class.getName()).log(Level.SEVERE, null, ex);
         }

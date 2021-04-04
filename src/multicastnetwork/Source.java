@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Source extends Node{
+public class Source extends Node implements Runnable{
     private ArrayList<Node> shortestPath;
     
     public Source(int id, int port){
@@ -16,7 +16,7 @@ public class Source extends Node{
     @Override
     public void setUpSocket(int port){
       try {
-          this.UDPsocket = new DatagramSocket(port);
+          this.UDPsocket = new DatagramSocket(this.getmCastGroup().getPort());
       } catch (SocketException ex) {  
             Logger.getLogger(Source.class.getName()).log(Level.SEVERE, null, ex);
         }  
@@ -26,11 +26,13 @@ public class Source extends Node{
         this.shortestPath = shortestPath;
     } 
     
-    public void sendMessage(){
+    @Override
+    public void run(){
         String message = "Multicast Packet";
         byte[] buf = message.getBytes();
         DatagramPacket packet;
         try {
+            System.out.println(message);
             InetAddress address = InetAddress.getByName(this.getmCastGroup().getmAddr());
             packet = new DatagramPacket(buf, buf.length, address, this.getmCastRecvPort());
             this.getUDPsocket().send(packet);
