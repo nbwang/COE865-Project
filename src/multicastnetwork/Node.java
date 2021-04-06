@@ -2,99 +2,133 @@ package multicastnetwork;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 
-public abstract class Node {
-    protected DatagramSocket UDPsocket;
-    protected MulticastSocket multiSocket; 
-    protected char nodeType;
+public abstract class Node
+{
+    protected DatagramSocket socket;
+    protected MulticastSocket mSocket;
     protected int id;
+    protected char nodeType;
+    private ArrayList<Edge> edges;
     protected int port;
     private int mCastRecvPort;
     private Group mCastGroup;
+    private ArrayList<String> apartOfAddresses;
 
-    @Override
-    public String toString() {
-        return "Node{" + "nodeType=" + nodeType + ", id=" + id + ", port=" + port + '}';
-    }
-    protected String address = "127.0.0.1";
-    
     public Node(int id, int port, char nodeType){
         this.id = id;
-        this.port = port;
         this.nodeType = nodeType;
-        try {
-            this.multiSocket = new MulticastSocket(65010);
-        } catch (IOException e){
-            System.out.println(e.getMessage());
-        }       
+        this.port = port;
         this.mCastRecvPort = 4000;
-        this.mCastGroup = new Group(this.id, this.port);
+        this.edges = new ArrayList<Edge>();
+        try
+        {
+            this.mSocket = new MulticastSocket(this.mCastRecvPort);
+        }
+        catch (IOException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        this.mCastGroup = new Group (this.id, this.port);
+        this.apartOfAddresses = new ArrayList<String>();
     }
 
-    public void setUDPsocket(DatagramSocket UDPsocket) {
-        this.UDPsocket = UDPsocket;
+    public abstract void setupAllSockets();
+
+    public ArrayList<String> getApartOfAddresses()
+    {
+        return apartOfAddresses;
     }
 
-    public void setmCastRecvPort(int mCastRecvPort) {
-        this.mCastRecvPort = mCastRecvPort;
+    public void setApartOfAddresses(ArrayList<String> apartOfAddresses)
+    {
+        this.apartOfAddresses = apartOfAddresses;
     }
 
-    public void setmCastGroup(Group mCastGroup) {
-        this.mCastGroup = mCastGroup;
-    }
-    
-    public DatagramSocket getUDPsocket() {
-        return UDPsocket;
+    public MulticastSocket getmSocket()
+    {
+        return mSocket;
     }
 
-    public int getmCastRecvPort() {
+    public void setmSocket(MulticastSocket mSocket)
+    {
+        this.mSocket = mSocket;
+    }
+
+    public int getmCastRecvPort()
+    {
         return mCastRecvPort;
     }
 
-    public Group getmCastGroup() {
+    public void setmCastRecvPort(int mCastRecvPort)
+    {
+        this.mCastRecvPort = mCastRecvPort;
+    }
+
+    public Group getmCastGroup()
+    {
         return mCastGroup;
     }
-    
-    public MulticastSocket getMultiSocket() {
-        return multiSocket;
+
+    public void setmCastGroup(Group mCastGroup)
+    {
+        this.mCastGroup = mCastGroup;
     }
 
-    public void setMultiSocket(MulticastSocket multiSocket) {
-        this.multiSocket = multiSocket;
-    }
-    
-    public abstract void setUpSocket(int port);
-
-    public char getNodeType() {
-        return nodeType;
+    public DatagramSocket getSocket()
+    {
+        return socket;
     }
 
-    public void setNodeType(char nodeType) {
-        this.nodeType = nodeType;
+    public void setSocket(DatagramSocket socket)
+    {
+        this.socket = socket;
     }
-    
-    public int getId() {
+
+    public int getId()
+    {
         return id;
     }
 
-    public int getPort() {
-        return port;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public void setPort(int port) {
+    public ArrayList<Edge> getLinks()
+    {
+        return edges;
+    }
+
+    public void setLinks(ArrayList<Edge> edges)
+    {
+        this.edges = edges;
+    }
+
+    public int getPort()
+    {
+        return port;
+    }
+
+    public void setPort(int port)
+    {
         this.port = port;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }   
-    
+    public String toString()
+    {
+        String output = "";
+        output = output + "Node ID: " + this.getId() + "\nPort: " + this.getPort();
+        for (int i = 0 ; i < this.getLinks().size() ; i++)
+        {
+            output = output + "\nLink " + i + ":\n" + this.getLinks().get(i);
+        }
+        output = output + "\n" + this.getmCastGroup();
+        if (this.getApartOfAddresses().isEmpty() != true)
+        {
+            output = output + "\nApart of: " + this.getApartOfAddresses().get(0);
+        }
+        return output;
+    }
 }

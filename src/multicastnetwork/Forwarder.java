@@ -1,51 +1,74 @@
 package multicastnetwork;
 
 import java.io.IOException;
-import java.net.*;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 
 public class Forwarder extends Node implements Runnable{
-    
-    private DatagramPacket receivedPacket;
-    
-    public Forwarder(int id, int port){
-        super(id, port, 'F');
+    public Forwarder (int id, int port){
+        super (id, port, 'F');
     }
-    
-    @Override
-    public void setUpSocket(int port){
-      try {
-          this.UDPsocket = new DatagramSocket(this.getmCastGroup().getPort());
-      } catch (SocketException ex) {  
-            Logger.getLogger(Source.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-    }
-    @Override
-    public void run(){
-        byte[] inputBuf = new byte[1024];
-        this.receivedPacket = new DatagramPacket(inputBuf, inputBuf.length);
-        String message1 = "Hello from forwarder";
-//        System.out.println("Hello from forwarder");
-        try {
-            
-            this.getMultiSocket().receive(this.receivedPacket);
-            System.out.println("Hello from forwarder");
-            System.out.println("!");
-            String received = new String(this.getReceivedPacket().getData(), 0, this.getReceivedPacket().getLength());
-            String message = "Forwarder: "+this.getId() + "is sending packet: \n" + received;
-            byte[] outputBuf = message.getBytes();
-            DatagramPacket sendPacket = new DatagramPacket(outputBuf, outputBuf.length, this.getmCastGroup().getGroup(), this.getmCastRecvPort());
-            this.getUDPsocket().send(sendPacket);
-        } catch (IOException ex) {
-            Logger.getLogger(Source.class.getName()).log(Level.SEVERE, null, ex);
+
+    private DatagramPacket recvdPack;
+
+    public void setupAllSockets()
+    {
+        try
+        {
+            this.socket = new DatagramSocket(this.getPort());
+            if (this.getApartOfAddresses().isEmpty() != true)
+            {
+                this.mSocket.joinGroup(InetAddress.getByName(this.getApartOfAddresses().get(0)));
+            }
+        }
+        catch (IOException e)
+        {
+            System.out.println (e.getMessage());
         }
     }
 
-    public DatagramPacket getReceivedPacket() {
-        return receivedPacket;
+    public void run()
+    {
+        byte[] inputBuffer = new byte[1024];
+        this.recvdPack = new DatagramPacket(inputBuffer, inputBuffer.length);
+        if (this.getApartOfAddresses().isEmpty() != true)
+        {
+            try
+            {
+                this.getmSocket().receive(this.getRecvdPack());
+                String recvd = new String (this.getRecvdPack().getData(), 0, this.getRecvdPack().getLength());
+                recvd = "Node " + this.getId() + " is Sending this Packet!\n" + recvd;
+                byte[] sendBuf = recvd.getBytes();
+                DatagramPacket sendPacket = new DatagramPacket(sendBuf, sendBuf.length, this.getmCastGroup().getGroup(), this.getmCastRecvPort());
+                this.getSocket().send(sendPacket);
+            }
+            catch (IOException e)
+            {
+                System.out.println ("Forwarder");
+                System.out.println (e.getMessage());
+            }
+        }
     }
 
+    public void getOut()
+    {
+        String test = new String (this.recvdPack.getData(), 0, this.recvdPack.getLength());
+        System.out.println ("Node " + this.getId() + " Received:\n" + test);
+    }
 
+    public DatagramPacket getRecvdPack()
+    {
+        return recvdPack;
+    }
+
+    public void setRecvdPack(DatagramPacket recvdPack)
+    {
+        this.recvdPack = recvdPack;
+    }
+
+    public String toString()
+    {
+        return "Forwarder:\n" + super.toString();
+    }
 }

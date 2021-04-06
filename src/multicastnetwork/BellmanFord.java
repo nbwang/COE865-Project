@@ -8,7 +8,6 @@ import java.io.*;
 public class BellmanFord {
     public static ArrayList<Node> BellmanFordAlgorithm(Graph graph, Node Source, Node Destination){
         ArrayList<Node> path = new ArrayList<Node>();
-        ArrayList<Node> tempPath = new ArrayList<Node>();
         int numberOfVertices = graph.nodesList.size();
 
         //Creates an array to hold the destination distances
@@ -26,7 +25,7 @@ public class BellmanFord {
         
         for(int  i = 1; i < graph.nodesList.size(); i++){
             for(Edge e : graph.edgesList){
-                if(dist[e.src.id-1] != Integer.MAX_VALUE && !distNodes.get(e.src.id-1).isEmpty() && (dist[e.src.id-1] + e.weight) < dist[e.dst.id-1]){
+                if(dist[e.src.id-1] != Integer.MAX_VALUE && !distNodes.get(e.src.id-1).isEmpty() && (dist[e.src.id-1] + e.weight) <= dist[e.dst.id-1]){
                     // path.clear();
                     path = new ArrayList<>(distNodes.get(e.src.id-1));
                     path.add(e.dst);
