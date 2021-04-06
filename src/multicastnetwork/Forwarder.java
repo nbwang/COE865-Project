@@ -10,65 +10,50 @@ public class Forwarder extends Node implements Runnable{
         super (id, port, 'F');
     }
 
-    private DatagramPacket recvdPack;
+    private DatagramPacket packetIn;
 
-    public void setupAllSockets()
-    {
-        try
-        {
+    public void socketInit(){
+        try{
             this.socket = new DatagramSocket(this.getPort());
-            if (this.getApartOfAddresses().isEmpty() != true)
+            if (this.getaddressesCheck().isEmpty() != true)
             {
-                this.mSocket.joinGroup(InetAddress.getByName(this.getApartOfAddresses().get(0)));
+                this.mSocket.joinGroup(InetAddress.getByName(this.getaddressesCheck().get(0)));
             }
         }
-        catch (IOException e)
-        {
+        catch (IOException e){
             System.out.println (e.getMessage());
         }
     }
 
-    public void run()
-    {
-        byte[] inputBuffer = new byte[1024];
-        this.recvdPack = new DatagramPacket(inputBuffer, inputBuffer.length);
-        if (this.getApartOfAddresses().isEmpty() != true)
-        {
-            try
-            {
-                this.getmSocket().receive(this.getRecvdPack());
-                String recvd = new String (this.getRecvdPack().getData(), 0, this.getRecvdPack().getLength());
-                recvd = "Node " + this.getId() + " is Sending this Packet!\n" + recvd;
-                byte[] sendBuf = recvd.getBytes();
-                DatagramPacket sendPacket = new DatagramPacket(sendBuf, sendBuf.length, this.getmCastGroup().getGroup(), this.getmCastRecvPort());
+    public void run(){
+        byte[] inBuffer = new byte[1024];
+        this.packetIn = new DatagramPacket(inBuffer, inBuffer.length);
+        if (this.getaddressesCheck().isEmpty() != true){
+            try{
+                this.getmSocket().receive(this.getpacketIn());
+                String receiverTemp = new String (this.getpacketIn().getData(), 0, this.getpacketIn().getLength());
+                receiverTemp = "Multicast Packet sent from Forwarder " + this.getId() + "\n" + receiverTemp;
+                byte[] outBuffer = receiverTemp.getBytes();
+                DatagramPacket sendPacket = new DatagramPacket(outBuffer, outBuffer.length, this.getmCastGroup().getGroup(), this.getmCastRecvPort());
                 this.getSocket().send(sendPacket);
             }
-            catch (IOException e)
-            {
+            catch (IOException e){
                 System.out.println ("Forwarder");
                 System.out.println (e.getMessage());
             }
         }
     }
 
-    public void getOut()
-    {
-        String test = new String (this.recvdPack.getData(), 0, this.recvdPack.getLength());
-        System.out.println ("Node " + this.getId() + " Received:\n" + test);
+    public void output(){
+        String steps = new String (this.packetIn.getData(), 0, this.packetIn.getLength());
+        System.out.println ("Node " + this.getId() + " Received:\n" + steps);
     }
 
-    public DatagramPacket getRecvdPack()
-    {
-        return recvdPack;
+    public DatagramPacket getpacketIn(){
+        return packetIn;
     }
 
-    public void setRecvdPack(DatagramPacket recvdPack)
-    {
-        this.recvdPack = recvdPack;
-    }
-
-    public String toString()
-    {
-        return "Forwarder:\n" + super.toString();
+    public void setpacketIn(DatagramPacket packetIn){
+        this.packetIn = packetIn;
     }
 }

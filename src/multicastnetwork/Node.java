@@ -34,9 +34,9 @@ public abstract class Node
         this.apartOfAddresses = new ArrayList<String>();
     }
 
-    public abstract void setupAllSockets();
+    public abstract void socketInit();
 
-    public ArrayList<String> getApartOfAddresses()
+    public ArrayList<String> getaddressesCheck()
     {
         return apartOfAddresses;
     }
@@ -125,9 +125,9 @@ public abstract class Node
             output = output + "\nLink " + i + ":\n" + this.getLinks().get(i);
         }
         output = output + "\n" + this.getmCastGroup();
-        if (this.getApartOfAddresses().isEmpty() != true)
+        if (this.getaddressesCheck().isEmpty() != true)
         {
-            output = output + "\nApart of: " + this.getApartOfAddresses().get(0);
+            output = output + "\nApart of: " + this.getaddressesCheck().get(0);
         }
         return output;
     }

@@ -6,34 +6,28 @@
 package multicastnetwork;
 
 import java.util.*;
-import java.lang.*;
 import java.io.*; 
 
 
 public class Graph {
-        ArrayList<Node> nodesList = new ArrayList<Node>();
-        ArrayList<Edge> edgesList = new ArrayList<Edge>();
+    ArrayList<Node> nodesList = new ArrayList<Node>();
+    ArrayList<Edge> edgesList = new ArrayList<Edge>();
 
     public Graph createGraph(){
         Graph graph = new Graph();
         boolean linebreak = false;
-        int line = 0;
         File topology = new File ("topology.txt");
         // Source source;
 
         try{
             Scanner fileReader = new Scanner(topology);
-            while (fileReader.hasNextLine())
-            {
-                line++;
+            while (fileReader.hasNextLine()){
                 String lineData = fileReader.nextLine();
-                if (lineData.equals("EDGES"))
-                {
+                if (lineData.equals("EDGES")){
                     linebreak = true;
                     continue;
                 }
-                if (linebreak == false)
-                {
+                if (linebreak == false){
                     String stParts [] = lineData.split(" ");
                     int nodeID = Integer.parseInt(stParts[0]);
                     char nodeType = stParts[1].charAt(0);
@@ -42,19 +36,21 @@ public class Graph {
                         case 'S':
                             Source source = new Source(nodeID, nodePort);
                             graph.nodesList.add(source);
+                            System.out.println("Source ID: "+source.id+" Port: "+source.port);
                             break;
                         case 'R':
                             Receiver receiver = new Receiver(nodeID, nodePort);
                             graph.nodesList.add(receiver);
+                            System.out.println("Receiver ID: "+receiver.id+" Port: "+receiver.port);
                             break;
                         case 'F':
                             Forwarder forwarder = new Forwarder(nodeID, nodePort);
                             graph.nodesList.add(forwarder);
+                            System.out.println("Forwarder ID: "+forwarder.id+" Port: "+forwarder.port);
                             break;
                     }
                 }                
-                else
-                {
+                else{
                     // edgesList.add(lineData);
                     String stParts [] = lineData.split(" ");
                     int edgeWeight = Integer.parseInt(stParts[0]);
@@ -79,11 +75,9 @@ public class Graph {
             }
             fileReader.close();
         }
-        catch (IOException e)
-        {
+        catch (IOException e){
             System.out.println (e.getMessage());
         }
         return graph;
     }
-
 }

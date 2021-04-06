@@ -62,7 +62,7 @@ public class MulticastNetwork
                     for (Forwarder f :forwarderList){
                         if (list.get(nodeIndex + 1).equals(f) && !source.getmCastGroup().getRecvrList().contains(f)){
                             source.getmCastGroup().getRecvrList().add(f);
-                            f.getApartOfAddresses().add(source.getmCastGroup().getmAddr());
+                            f.getaddressesCheck().add(source.getmCastGroup().getmAddr());
                             break;
                         }
                     }
@@ -73,14 +73,14 @@ public class MulticastNetwork
                         for (Forwarder f2: forwarderList){
                             if (list.get(nodeIndex + 1).equals(f2) && !f.getmCastGroup().getRecvrList().contains(f2)){
                                 f.getmCastGroup().getRecvrList().add(f2);
-                                f2.getApartOfAddresses().add(f.getmCastGroup().getmAddr());
+                                f2.getaddressesCheck().add(f.getmCastGroup().getmAddr());
                                 break;
                             }
                         }
                         for (Receiver r : recvrList){
                             if (list.get(nodeIndex + 1).equals(r) && !f.getmCastGroup().getRecvrList().contains(r)){
                                 f.getmCastGroup().getRecvrList().add(r);
-                                r.getApartOfAddresses().add(f.getmCastGroup().getmAddr());
+                                r.getaddressesCheck().add(f.getmCastGroup().getmAddr());
                                 break;
                             }
                         }
@@ -89,34 +89,22 @@ public class MulticastNetwork
             }
         }
 
-        System.out.println (source);
-        System.out.println ("");
-
-        for (Forwarder f :forwarderList){
-            System.out.println (f);
-            System.out.println ("");
-        }
-        for (Receiver r : recvrList){
-            System.out.println (r);
-            System.out.println ("");
-        }
-
-        System.out.println (source.getAllShortestPaths());
+        System.out.println ("\n"+source.getAllShortestPaths());
 
         Thread sourceThread = new Thread(source);
-        source.setupAllSockets();
+        source.socketInit();
         ArrayList<Thread> forwarderThreadList = new ArrayList<Thread>();
         ArrayList<Thread> recvrThreadList = new ArrayList<Thread>();
 
         for (Forwarder f :forwarderList){
-            f.setupAllSockets();
+            f.socketInit();
             Thread fThread = new Thread(f);
             forwarderThreadList.add(fThread);
             fThread.start();
         }
 
         for (Receiver r : recvrList){
-            r.setupAllSockets();
+            r.socketInit();
             Thread rThread = new Thread(r);
             recvrThreadList.add(rThread);
             rThread.start();
@@ -138,17 +126,17 @@ public class MulticastNetwork
             System.out.println (e.getMessage());
         }
 
-        System.out.println ("PACKET TRACING:\n");
+        System.out.println ("Packet Route:\n");
 
         for (int i = 0 ; i < forwarderList.size() ; i++){
-            if (!forwarderList.get(i).getApartOfAddresses().isEmpty()){
-                forwarderList.get(i).getOut();
+            if (!forwarderList.get(i).getaddressesCheck().isEmpty()){
+                forwarderList.get(i).output();
             }
 
         }
 
         for (int i = 0 ; i < recvrList.size() ; i++){
-            recvrList.get(i).getOut();
+            recvrList.get(i).output();
         }
     }
 }

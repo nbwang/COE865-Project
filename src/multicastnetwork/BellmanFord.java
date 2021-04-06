@@ -1,14 +1,12 @@
 package multicastnetwork;
 
 import java.util.*;
-import java.lang.*;
-import java.io.*; 
 
 
 public class BellmanFord {
     public static ArrayList<Node> BellmanFordAlgorithm(Graph graph, Node Source, Node Destination){
         ArrayList<Node> path = new ArrayList<Node>();
-        int numberOfVertices = graph.nodesList.size();
+        var numberOfVertices = graph.nodesList.size();
 
         //Creates an array to hold the destination distances
         int dist[] = new int[numberOfVertices];
