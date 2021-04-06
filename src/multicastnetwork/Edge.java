@@ -1,7 +1,5 @@
 package multicastnetwork;
 
-import java.net.*;
-
 public class Edge {
     public int weight;  
     public Node src;

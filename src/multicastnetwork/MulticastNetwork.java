@@ -13,7 +13,6 @@ public class MulticastNetwork
         Graph graph = new Graph();
         graph = graph.createGraph();
         ArrayList<Node> nodesList = graph.nodesList;
-        BellmanFord bellmanFord = new BellmanFord();
 
         for (Node n: nodesList){
             if (Character.compare(n.nodeType, 'F')==0){
@@ -50,7 +49,7 @@ public class MulticastNetwork
 
 
         for (Receiver r : recvrList){
-            source.generateShortestPath(bellmanFord.BellmanFordAlgorithm(graph, source, r));
+            source.generateShortestPath(BellmanFord.BellmanFordAlgorithm(graph, source, r));
         }
         
         int nodeIndex;
