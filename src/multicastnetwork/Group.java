@@ -8,7 +8,7 @@ public class Group{
     private int sourceID;
     private ArrayList<Node> recvrList;
     private int sendPort;
-    private String mAddr = "230.0.0.";
+    private String mAddr = "228.0.0.";
     private static int mAddrEnd = 1;
     private InetAddress group;
 
