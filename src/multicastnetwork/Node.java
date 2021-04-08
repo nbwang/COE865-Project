@@ -20,7 +20,7 @@ public abstract class Node
         this.id = id;
         this.nodeType = nodeType;
         this.port = port;
-        this.multicastPort = 4000;
+        this.multicastPort = 6000;
         this.edges = new ArrayList<Edge>();
         try
         {
@@ -114,21 +114,5 @@ public abstract class Node
     public void setPort(int port)
     {
         this.port = port;
-    }
-
-    public String toString()
-    {
-        String output = "";
-        output = output + "Node ID: " + this.getId() + "\nPort: " + this.getPort();
-        for (int i = 0 ; i < this.getLinks().size() ; i++)
-        {
-            output = output + "\nLink " + i + ":\n" + this.getLinks().get(i);
-        }
-        output = output + "\n" + this.getMulticastGroup();
-        if (this.getaddressesCheck().isEmpty() != true)
-        {
-            output = output + "\nApart of: " + this.getaddressesCheck().get(0);
-        }
-        return output;
     }
 }
