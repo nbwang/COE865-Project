@@ -36,83 +36,67 @@ public abstract class Node
 
     public abstract void socketInit();
 
-    public ArrayList<String> getaddressesCheck()
-    {
+    public ArrayList<String> getaddressesCheck(){
         return addressesList;
     }
 
-    public void setAddressesList(ArrayList<String> addressesList)
-    {
+    public void setAddressesList(ArrayList<String> addressesList){
         this.addressesList = addressesList;
     }
 
-    public MulticastSocket getMulticastSocket()
-    {
+    public MulticastSocket getMulticastSocket(){
         return multicastSocket;
     }
 
-    public void setMulticastSocket(MulticastSocket multicastSocket)
-    {
+    public void setMulticastSocket(MulticastSocket multicastSocket){
         this.multicastSocket = multicastSocket;
     }
 
-    public int getMulticastPort()
-    {
+    public int getMulticastPort(){
         return multicastPort;
     }
 
-    public void setMulticastPort(int multicastPort)
-    {
+    public void setMulticastPort(int multicastPort){
         this.multicastPort = multicastPort;
     }
 
-    public Group getMulticastGroup()
-    {
+    public Group getMulticastGroup(){
         return multicastGroup;
     }
 
-    public void setMulticastGroup(Group multicastGroup)
-    {
+    public void setMulticastGroup(Group multicastGroup){
         this.multicastGroup = multicastGroup;
     }
 
-    public DatagramSocket getSocket()
-    {
+    public DatagramSocket getSocket(){
         return socket;
     }
 
-    public void setSocket(DatagramSocket socket)
-    {
+    public void setSocket(DatagramSocket socket){
         this.socket = socket;
     }
 
-    public int getId()
-    {
+    public int getId(){
         return id;
     }
 
-    public void setId(int id)
-    {
+    public void setId(int id){
         this.id = id;
     }
 
-    public ArrayList<Edge> getLinks()
-    {
+    public ArrayList<Edge> getLinks(){
         return edges;
     }
 
-    public void setLinks(ArrayList<Edge> edges)
-    {
+    public void setLinks(ArrayList<Edge> edges){
         this.edges = edges;
     }
 
-    public int getPort()
-    {
+    public int getPort(){
         return port;
     }
 
-    public void setPort(int port)
-    {
+    public void setPort(int port){
         this.port = port;
     }
 }
