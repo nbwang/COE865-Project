@@ -56,7 +56,6 @@ public class MulticastNetwork
         for (ArrayList<Node> list: source.getShortestPaths()){
             for (Node n : list){
                 nodeIndex = list.indexOf(n);
-                //If node in path is equal to source
                 if (n.equals(source)){
                     for (Forwarder f :forwarderList){
                         if (list.get(nodeIndex + 1).equals(f) && !source.getMulticastGroup().getRecvrList().contains(f)){
@@ -66,7 +65,6 @@ public class MulticastNetwork
                         }
                     }
                 }
-                //If node in path is equal to a node in forwarder list
                 for (Forwarder f :forwarderList){
                     if (n.equals(f)){
                         for (Forwarder f2: forwarderList){
@@ -124,16 +122,13 @@ public class MulticastNetwork
         catch (InterruptedException e){
             System.out.println (e.getMessage());
         }
-
         System.out.println ("Packet Route:\n");
-
+        
         for (int i = 0 ; i < forwarderList.size() ; i++){
             if (!forwarderList.get(i).getaddressesCheck().isEmpty()){
                 forwarderList.get(i).output();
             }
-
         }
-
         for (int i = 0 ; i < recvrList.size() ; i++){
             recvrList.get(i).output();
         }
