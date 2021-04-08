@@ -14,7 +14,7 @@ public class Receiver extends Node implements Runnable{
         try{
             this.socket = new DatagramSocket(this.getPort());
             if (this.getaddressesCheck().isEmpty() != true){
-                this.mSocket.joinGroup(InetAddress.getByName(this.getaddressesCheck().get(0)));
+                this.multicastSocket.joinGroup(InetAddress.getByName(this.getaddressesCheck().get(0)));
             }
         }
         catch (IOException e){
@@ -26,7 +26,7 @@ public class Receiver extends Node implements Runnable{
         byte[] inBuffer = new byte[1024];
         this.packetIn = new DatagramPacket(inBuffer, inBuffer.length);
         try{
-            this.getmSocket().receive(this.getpacketIn());
+            this.getMulticastSocket().receive(this.getpacketIn());
         }
         catch (IOException e){
             System.out.println (e.getMessage());

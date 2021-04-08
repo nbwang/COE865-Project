@@ -17,7 +17,7 @@ public class Forwarder extends Node implements Runnable{
             this.socket = new DatagramSocket(this.getPort());
             if (this.getaddressesCheck().isEmpty() != true)
             {
-                this.mSocket.joinGroup(InetAddress.getByName(this.getaddressesCheck().get(0)));
+                this.multicastSocket.joinGroup(InetAddress.getByName(this.getaddressesCheck().get(0)));
             }
         }
         catch (IOException e){
@@ -30,11 +30,11 @@ public class Forwarder extends Node implements Runnable{
         this.packetIn = new DatagramPacket(inBuffer, inBuffer.length);
         if (this.getaddressesCheck().isEmpty() != true){
             try{
-                this.getmSocket().receive(this.getpacketIn());
+                this.getMulticastSocket().receive(this.getpacketIn());
                 String receiverTemp = new String (this.getpacketIn().getData(), 0, this.getpacketIn().getLength());
                 receiverTemp = "Multicast Packet sent from Forwarder " + this.getId() + "\n" + receiverTemp;
                 byte[] outBuffer = receiverTemp.getBytes();
-                DatagramPacket sendPacket = new DatagramPacket(outBuffer, outBuffer.length, this.getmCastGroup().getGroup(), this.getmCastRecvPort());
+                DatagramPacket sendPacket = new DatagramPacket(outBuffer, outBuffer.length, this.getMulticastGroup().getGroup(), this.getMulticastPort());
                 this.getSocket().send(sendPacket);
             }
             catch (IOException e){

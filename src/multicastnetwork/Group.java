@@ -7,24 +7,24 @@ import java.util.ArrayList;
 public class Group{
     private int sourceID;
     private ArrayList<Node> recvrList;
-    private int sendPort;
-    private String mAddr = "228.0.0.";
-    private static int mAddrEnd = 1;
+    private int port;
+    private String multicastAddress = "235.255.255.10";
+    private static int addressSuffix = 1;
     private InetAddress group;
 
-    public Group (int sourceID, int sendPort){
+    public Group (int sourceID, int port){
         this.sourceID = sourceID;
-        this.sendPort = sendPort;
+        this.port = port;
         this.recvrList = new ArrayList<Node>();
-        this.mAddr = this.mAddr + Integer.toString(mAddrEnd);
+        this.multicastAddress = this.multicastAddress + Integer.toString(addressSuffix);
 
         try{
-            this.group = InetAddress.getByName(this.mAddr);
+            this.group = InetAddress.getByName(this.multicastAddress);
         }
         catch (UnknownHostException e){
             System.out.println (e.getMessage());
         }
-        mAddrEnd++;
+        addressSuffix++;
     }
 
     public InetAddress getGroup(){
@@ -35,20 +35,20 @@ public class Group{
         this.group = group;
     }
 
-    public String getmAddr(){
-        return mAddr;
+    public String getMulticastAddress(){
+        return multicastAddress;
     }
 
-    public void setmAddr(String mAddr){
-        this.mAddr = mAddr;
+    public void setMulticastAddress(String multicastAddress){
+        this.multicastAddress = multicastAddress;
     }
 
-    public static int getmAddrEnd(){
-        return mAddrEnd;
+    public static int getAddressSuffix(){
+        return addressSuffix;
     }
 
-    public static void setmAddrEnd(int mAddrEnd){
-        Group.mAddrEnd = mAddrEnd;
+    public static void setAddressSuffix(int addressSuffix){
+        Group.addressSuffix = addressSuffix;
     }
 
     public int getSourceID(){
@@ -67,11 +67,11 @@ public class Group{
         this.recvrList = recvrList;
     }
 
-    public int getSendPort(){
-        return sendPort;
+    public int getPort(){
+        return port;
     }
 
-    public void setSendPort(int sendPort){
-        this.sendPort = sendPort;
+    public void setPort(int port){
+        this.port = port;
     }
 }

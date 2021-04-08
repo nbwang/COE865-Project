@@ -59,9 +59,9 @@ public class MulticastNetwork
                 //If node in path is equal to source
                 if (n.equals(source)){
                     for (Forwarder f :forwarderList){
-                        if (list.get(nodeIndex + 1).equals(f) && !source.getmCastGroup().getRecvrList().contains(f)){
-                            source.getmCastGroup().getRecvrList().add(f);
-                            f.getaddressesCheck().add(source.getmCastGroup().getmAddr());
+                        if (list.get(nodeIndex + 1).equals(f) && !source.getMulticastGroup().getRecvrList().contains(f)){
+                            source.getMulticastGroup().getRecvrList().add(f);
+                            f.getaddressesCheck().add(source.getMulticastGroup().getMulticastAddress());
                             break;
                         }
                     }
@@ -70,16 +70,16 @@ public class MulticastNetwork
                 for (Forwarder f :forwarderList){
                     if (n.equals(f)){
                         for (Forwarder f2: forwarderList){
-                            if (list.get(nodeIndex + 1).equals(f2) && !f.getmCastGroup().getRecvrList().contains(f2)){
-                                f.getmCastGroup().getRecvrList().add(f2);
-                                f2.getaddressesCheck().add(f.getmCastGroup().getmAddr());
+                            if (list.get(nodeIndex + 1).equals(f2) && !f.getMulticastGroup().getRecvrList().contains(f2)){
+                                f.getMulticastGroup().getRecvrList().add(f2);
+                                f2.getaddressesCheck().add(f.getMulticastGroup().getMulticastAddress());
                                 break;
                             }
                         }
                         for (Receiver r : recvrList){
-                            if (list.get(nodeIndex + 1).equals(r) && !f.getmCastGroup().getRecvrList().contains(r)){
-                                f.getmCastGroup().getRecvrList().add(r);
-                                r.getaddressesCheck().add(f.getmCastGroup().getmAddr());
+                            if (list.get(nodeIndex + 1).equals(r) && !f.getMulticastGroup().getRecvrList().contains(r)){
+                                f.getMulticastGroup().getRecvrList().add(r);
+                                r.getaddressesCheck().add(f.getMulticastGroup().getMulticastAddress());
                                 break;
                             }
                         }

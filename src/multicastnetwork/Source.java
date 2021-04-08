@@ -42,7 +42,7 @@ public class Source extends Node implements Runnable{
 
     public void socketInit(){
         try{
-            this.socket = new DatagramSocket(this.getmCastGroup().getSendPort());
+            this.socket = new DatagramSocket(this.getMulticastGroup().getPort());
         }
         catch (SocketException e){
             System.out.println (e.getMessage());
@@ -54,8 +54,8 @@ public class Source extends Node implements Runnable{
         byte[] buffer = message.getBytes();
         DatagramPacket packet;
         try{
-            InetAddress addrToSend = InetAddress.getByName(this.getmCastGroup().getmAddr());
-            packet = new DatagramPacket(buffer, buffer.length, addrToSend, this.getmCastRecvPort());
+            InetAddress addrToSend = InetAddress.getByName(this.getMulticastGroup().getMulticastAddress());
+            packet = new DatagramPacket(buffer, buffer.length, addrToSend, this.getMulticastPort());
             this.getSocket().send(packet);
         }
         catch (IOException e){

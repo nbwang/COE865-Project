@@ -7,73 +7,73 @@ import java.util.ArrayList;
 public abstract class Node
 {
     protected DatagramSocket socket;
-    protected MulticastSocket mSocket;
+    protected MulticastSocket multicastSocket;
     protected int id;
     protected char nodeType;
     private ArrayList<Edge> edges;
     protected int port;
-    private int mCastRecvPort;
-    private Group mCastGroup;
-    private ArrayList<String> apartOfAddresses;
+    private int multicastPort;
+    private Group multicastGroup;
+    private ArrayList<String> addressesList;
 
     public Node(int id, int port, char nodeType){
         this.id = id;
         this.nodeType = nodeType;
         this.port = port;
-        this.mCastRecvPort = 4000;
+        this.multicastPort = 4000;
         this.edges = new ArrayList<Edge>();
         try
         {
-            this.mSocket = new MulticastSocket(this.mCastRecvPort);
+            this.multicastSocket = new MulticastSocket(this.multicastPort);
         }
         catch (IOException e)
         {
             System.out.println(e.getMessage());
         }
-        this.mCastGroup = new Group (this.id, this.port);
-        this.apartOfAddresses = new ArrayList<String>();
+        this.multicastGroup = new Group (this.id, this.port);
+        this.addressesList = new ArrayList<String>();
     }
 
     public abstract void socketInit();
 
     public ArrayList<String> getaddressesCheck()
     {
-        return apartOfAddresses;
+        return addressesList;
     }
 
-    public void setApartOfAddresses(ArrayList<String> apartOfAddresses)
+    public void setAddressesList(ArrayList<String> addressesList)
     {
-        this.apartOfAddresses = apartOfAddresses;
+        this.addressesList = addressesList;
     }
 
-    public MulticastSocket getmSocket()
+    public MulticastSocket getMulticastSocket()
     {
-        return mSocket;
+        return multicastSocket;
     }
 
-    public void setmSocket(MulticastSocket mSocket)
+    public void setMulticastSocket(MulticastSocket multicastSocket)
     {
-        this.mSocket = mSocket;
+        this.multicastSocket = multicastSocket;
     }
 
-    public int getmCastRecvPort()
+    public int getMulticastPort()
     {
-        return mCastRecvPort;
+        return multicastPort;
     }
 
-    public void setmCastRecvPort(int mCastRecvPort)
+    public void setMulticastPort(int multicastPort)
     {
-        this.mCastRecvPort = mCastRecvPort;
+        this.multicastPort = multicastPort;
     }
 
-    public Group getmCastGroup()
+    public Group getMulticastGroup()
     {
-        return mCastGroup;
+        return multicastGroup;
     }
 
-    public void setmCastGroup(Group mCastGroup)
+    public void setMulticastGroup(Group multicastGroup)
     {
-        this.mCastGroup = mCastGroup;
+        this.multicastGroup = multicastGroup;
     }
 
     public DatagramSocket getSocket()
@@ -124,7 +124,7 @@ public abstract class Node
         {
             output = output + "\nLink " + i + ":\n" + this.getLinks().get(i);
         }
-        output = output + "\n" + this.getmCastGroup();
+        output = output + "\n" + this.getMulticastGroup();
         if (this.getaddressesCheck().isEmpty() != true)
         {
             output = output + "\nApart of: " + this.getaddressesCheck().get(0);
