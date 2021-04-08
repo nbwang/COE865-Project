@@ -27,21 +27,16 @@ public class MulticastNetwork
         }
 
         for (Edge e: edgeList){
-            Node host1;
-            Node host2;
-            host1 = e.src;
-            host2 = e.dst;
-
-            if (host1.equals(source) || host2.equals(source)){
+              if (e.src.equals(source) || e.dst.equals(source)){
                 source.getLinks().add(e);
             }
             for (Forwarder f: forwarderList){
-                if (host1.equals(f) || host2.equals(f)){
+                if (e.src.equals(f) || e.dst.equals(f)){
                     f.getLinks().add(e);
                 }
             }
             for (Receiver r : recvrList){
-                if (host1.equals(r) || host2.equals(r)){
+                if (e.src.equals(r) || e.dst.equals(r)){
                     r.getLinks().add(e);
                 }
             }
